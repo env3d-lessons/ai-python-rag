@@ -1,22 +1,38 @@
-from transformers import pipeline
-# pipe = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english")
+from chat import complete
+import rag
 
-pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
+chat_template = """<|im_start|>system
+Speak using only language in the bible
+You always answer using the following information
+{}<|im_end|>
+<|im_start|>user
+{}<|im_end|>
+<|im_start|>assistant
+"""
 
-pipe2 = pipeline("text-generation", model="Qwen/Qwen2.5-0.5B-Instruct")
-messages = [
-    {"role": "user", "content": "Who are you?"},
-]
 
-while True:
-    sentence = input("Message: ")
-    if sentence.lower() == 'bye':
-        break
-    sentiment = pipe(sentence)[0]['label']
-    
-    pipe2_input =  [
-        {"role": "user", "content": f"The user is feeling {sentiment}.  Make the user feel positive"}
-    ]
-        
-    response = pipe2(pipe2_input, skip_prompt=True, max_new_tokens=256, do_sample=True, temperature=0.7)[0]['generated_text']    
-    print("Response:", response)
+# Modify the main function as per requirements from README.md
+# Below is a simple example of how to use the chat function
+
+def main():
+
+    while True:
+        # Ask user for input and call the chat function
+        user_input = input("User: ")
+        if user_input.lower() == 'exit':
+            break
+
+        # Call the chat function with user input
+        context = rag.search(user_input,10)
+
+        content = chat_template.format('\n'.join(context), user_input)
+
+        #print(content)
+        response = complete(content )
+ 
+        # Print the AI's response and exit
+        print("AI:", response)
+
+if __name__ == '__main__':
+    # Launch the main() function if `python main.py` is entered from the terminal
+    main()

@@ -2,12 +2,14 @@ from chat import complete
 import rag
 
 chat_template = """<|im_start|>system
-Speak using only language in the bible
-You always answer using the following information
+Use the following information to answer user's question on the bible
 {}<|im_end|>
 <|im_start|>user
 {}<|im_end|>
 <|im_start|>assistant
+<think>
+
+</think>
 """
 
 
@@ -23,7 +25,7 @@ def main():
             break
 
         # Call the chat function with user input
-        context = rag.search(user_input,10)
+        context = rag.search(user_input,3)
 
         content = chat_template.format('\n'.join(context), user_input)
 

@@ -29,13 +29,6 @@ verses = f.readlines()
 f.close()
 
 
-def search(query, top_k=3):
-    index = load_index()
-    query_emb = model.encode([query], normalize_embeddings=True)
-    D, I = index.search(query_emb, top_k)
-    return [ verses[i] for i in I[0]]
-
-
 def load_index(index_file='faiss_index.bin', embedding_dim=384):
     # Check if the FAISS index file exists
     if os.path.exists(index_file):
@@ -59,3 +52,10 @@ def load_index(index_file='faiss_index.bin', embedding_dim=384):
         faiss.write_index(index, index_file)
 
     return index
+
+index = load_index()
+
+def search(query, top_k=3):
+    query_emb = model.encode([query], normalize_embeddings=True)
+    D, I = index.search(query_emb, top_k)
+    return [ verses[i] for i in I[0]]

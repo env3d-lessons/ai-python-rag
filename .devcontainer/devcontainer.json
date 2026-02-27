@@ -9,7 +9,6 @@
         "ms-python.vscode-pylance"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
         "extensions.ignoreRecommendations": true,
         "github.copilot.enable": { "*": false },
         "github.copilot.enablePanel": false

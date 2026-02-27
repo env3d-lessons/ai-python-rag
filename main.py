@@ -28,7 +28,7 @@ def main():
 
         content = chat_template.format('\n'.join(context), user_input)
         
-        print(content)
+        #print(content)
         response = complete(content )
  
         # Print the AI's response and exit

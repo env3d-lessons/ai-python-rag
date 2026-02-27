@@ -37,6 +37,7 @@ wget -q -O "$MODEL_FILE" https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/mai
 echo "✅ Model downloaded."
 
 echo "⏳ Installing huggingface libraries..."
+pip install -q torch --index-url https://download.pytorch.org/whl/cpu
 pip install -q sentence-transformers faiss-cpu
 
 echo ""

@@ -2,7 +2,7 @@ from chat import complete
 import rag
 
 chat_template = """<|im_start|>system
-Use the following information to answer user's question on the bible
+Use the following information to answer user's question
 {}<|im_end|>
 <|im_start|>user
 {}<|im_end|>
@@ -11,7 +11,6 @@ Use the following information to answer user's question on the bible
 
 </think>
 """
-
 
 # Modify the main function as per requirements from README.md
 # Below is a simple example of how to use the chat function
@@ -28,8 +27,8 @@ def main():
         context = rag.search(user_input,3)
 
         content = chat_template.format('\n'.join(context), user_input)
-
-        #print(content)
+        
+        print(content)
         response = complete(content )
  
         # Print the AI's response and exit
